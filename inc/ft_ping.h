@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 19:37:23 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/15 13:55:38 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/15 16:58:14 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,18 @@
 #include <signal.h> // for signal, alarm
 #include <sys/socket.h> // for setsockopt, recvmsg, sendto, socket
 #include <stdio.h> // for printf and its family
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netinet/ip_icmp.h>
+#include <unistd.h>
 #include "./../libft/libft.h" // for your libft functions
 
 typedef struct	s_vars
 {
-	const char	*hostname;
+	char	*hostname;
+	char	*port;
 	// _bool		verbose;
 	int			verbose;
 }				t_vars;

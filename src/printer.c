@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 21:57:17 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/15 13:40:03 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/15 17:35:32 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int print_help(int exit_code)
 
 int print_error(const char *error)
 {
-	dprintf(STDERR_FILENO, "Error: %s\n", error);
+	fprintf(stderr, "Error: %s\n", error);
 	return (EXIT_FAILURE);
 }

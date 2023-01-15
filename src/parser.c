@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 21:56:39 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/15 13:55:54 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/15 16:13:06 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,28 @@ t_vars *parser(int argc, const char **argv)
 	if (!vars->verbose && argc != 2)
 		exit(print_error("Please provide only one hostname. Use -h for help"));
 
+	char *semicolen = ft_strnstr(argv[hostname_index], ":", ft_strlen(argv[hostname_index]));
+	// Check if a semicolon is present in the hostname, if so, assign the string after the semicolon to "vars->port"
+	if (semicolen)
+	{
+		vars->port = ft_strdup(semicolen + 1);
+		semicolen[0] = '\0';
+	}
+	// If no semicolon is present, assign "80" to "vars->port"
+	else
+		vars->port = ft_strdup("80");
+	// If the memory allocation for "vars->port" fails, free the memory for "vars" and call the function "print_error" and exit the program.
+	if (!vars->port)
+	{
+		free(vars);
+		exit(print_error("Malloc failed"));
+	}
+	// Assign a copy of the hostname to "vars->hostname"
 	vars->hostname = ft_strdup(argv[hostname_index]);
 	if (!vars->hostname)
 	{
 		free(vars);
+		free(vars->port);
 		exit(print_error("Malloc failed"));
 	}
 	return (vars);
