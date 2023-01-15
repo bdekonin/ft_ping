@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 19:37:23 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/14 21:16:25 by mikuiper      ########   odam.nl         */
+/*   Updated: 2023/01/15 13:55:38 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ typedef struct	s_vars
 {
 	const char	*hostname;
 	// _bool		verbose;
+	int			verbose;
 }				t_vars;
 
 // Print
-int print_help();
+int print_help(int exit_code);
+int print_error(const char *error);
 
 // Parser
-void parser(int argc, const char **argv);
+t_vars *parser(int argc, const char **argv);
 
 #endif // FT_PING_HPP

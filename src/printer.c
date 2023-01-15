@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 21:57:17 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/14 21:57:20 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/15 13:40:03 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@
  * @return EXIT_FAILURE
  */
 
-int print_help()
+int print_help(int exit_code)
 {
-	printf("usage: ping [hostname] [-h] [-v] hostname\n\nPing a host\n\npositional arguments:\n  hostname\t\tThe hostname to ping\n\noptional arguments:\n  -h\t\tshow this help message and exit\n  -v\t\tenable verbose output\n\n");
+	printf("usage: ping [-h] [-v] <destination> \n\nPing a host\n\npositional arguments:\n  destination\tThe destination to ping\n\noptional arguments:\n  -h\t\tshow this help message and exit\n  -v\t\tenable verbose output\n");
+	return (exit_code);
+}
+
+int print_error(const char *error)
+{
+	dprintf(STDERR_FILENO, "Error: %s\n", error);
 	return (EXIT_FAILURE);
 }
