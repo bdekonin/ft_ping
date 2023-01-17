@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 21:56:39 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/15 16:13:06 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/17 14:15:39 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ t_vars *parser(int argc, const char **argv)
 	// Check if a semicolon is present in the hostname, if so, assign the string after the semicolon to "vars->port"
 	if (semicolen)
 	{
-		vars->port = ft_strdup(semicolen + 1);
+		semicolen += 1;
+		vars->port = ft_strdup(semicolen);
 		semicolen[0] = '\0';
 	}
 	// If no semicolon is present, assign "80" to "vars->port"

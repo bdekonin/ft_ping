@@ -6,18 +6,21 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 18:13:40 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/15 18:38:25 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/17 19:16:40 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../inc/ft_ping.h"
-
 
 int main(int argc, char const **argv)
 {
 	t_vars *vars;
 
 	vars = parser(argc, argv);
+
+
+
+
 
 	// printf("Hostname: [%s][%s]\n", vars->hostname, vars->port);
 
@@ -34,33 +37,25 @@ int main(int argc, char const **argv)
 		exit(EXIT_FAILURE);
 	}
 
-	int sockfd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
-	if (sockfd == -1) {
-		perror("socket");
-		exit(EXIT_FAILURE);
-	}
+	// print out result
+	struct addrinfo *rp;
+	char *ipver;
+	for (rp = result; rp != NULL; rp = rp->ai_next) {
+		char ipstr[INET6_ADDRSTRLEN];
+		void *addr;
 
-	struct sockaddr_in dest_addr;
-	memset(&dest_addr, 0, sizeof(dest_addr));
-	dest_addr.sin_family = AF_INET;
-	dest_addr.sin_addr.s_addr = inet_addr(vars->hostname);
+		if (rp->ai_family == AF_INET) {
+			struct sockaddr_in *ipv4 = (struct sockaddr_in *)rp->ai_addr;
+			addr = &(ipv4->sin_addr);
+			ipver = "IPv4";
+		} else {
+			struct sockaddr_in6 *ipv6 = (struct sockaddr_in6 *)rp->ai_addr;
+			addr = &(ipv6->sin6_addr);
+			ipver = "IPv6";
+		}
 
-	struct icmphdr echo_request;
-	memset(&echo_request, 0, sizeof(echo_request));
-	echo_request.type = ICMP_ECHO;
-	echo_request.code = 0;
-	echo_request.un.echo.id = getpid();
-	echo_request.un.echo.sequence = 0;
-
-	printf("send\n");
-	int bytes_sent = sendto(sockfd, &echo_request, sizeof(echo_request), 0, (struct sockaddr *) &dest_addr, sizeof(dest_addr));
-	dprintf("send %d\n", bytes_sent);
-	if (bytes_sent < 0)
-	{
-		perror("sendto");
-	}
-	else
-	{
-		printf("Sent %d bytes to %s\n", bytes_sent, vars->hostname);
+		inet_ntop(rp->ai_family, addr, ipstr, sizeof(ipstr));
+		printf("%s: %s", ipver, ipstr);
 	}
 }
+

@@ -6,13 +6,14 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 19:37:23 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/15 16:58:14 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/17 19:17:21 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PING_H
 # define FT_PING_H
 
+#include <netinet/ip.h>
 #include <unistd.h>  // for getpid, getuid
 #include <netdb.h>   // for getaddrinfo, freeaddrinfo
 #include <sys/time.h> // for gettimeofday
@@ -27,6 +28,7 @@
 #include <arpa/inet.h>
 #include <netinet/ip_icmp.h>
 #include <unistd.h>
+# include <stdbool.h>
 #include "./../libft/libft.h" // for your libft functions
 
 typedef struct	s_vars
@@ -36,6 +38,16 @@ typedef struct	s_vars
 	// _bool		verbose;
 	int			verbose;
 }				t_vars;
+
+typedef struct			s_ping
+{
+	struct sockaddr_in	dest;
+	char				*dest_addr;
+	char				*dest_port;
+	int					sock;
+	uint16_t			sequence;
+	bool				verbose_mode;
+}						t_ping;
 
 // Print
 int print_help(int exit_code);
