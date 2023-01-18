@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 19:37:23 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/17 19:17:21 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/01/17 19:59:14 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,8 @@ typedef struct	s_vars
 
 typedef struct			s_ping
 {
-	struct sockaddr_in	dest;
-	char				*dest_addr;
-	char				*dest_port;
-	int					sock;
-	uint16_t			sequence;
 	bool				verbose_mode;
+	pid_t				pid;
 }						t_ping;
 
 // Print
