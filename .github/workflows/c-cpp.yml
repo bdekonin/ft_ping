@@ -1,0 +1,25 @@
+name: ft_ping C/C++ CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  c_cpp_linting:
+    runs-on: ubuntu-latest
+    name: Linting C/C++
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Upgrade pip and setuptools
+        run: python3 -m pip install --upgrade pip setuptools
+      - name: Install norminette
+        run: python3 -m pip install norminette
+      - name: Run norminette
+        run: norminette -d */*.c */*.h
