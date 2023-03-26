@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 19:37:23 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/01/17 19:59:14 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/03/26 17:00:08 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,36 @@
 #include <netinet/ip_icmp.h>
 #include <unistd.h>
 # include <stdbool.h>
-#include "./../libft/libft.h" // for your libft functions
 
-typedef struct	s_vars
-{
-	char	*hostname;
-	char	*port;
-	// _bool		verbose;
+#include "../libft/libft.h" // for your libft functions
+
+/* Parsing */
+# define F_HELP "-h"
+# define F_VERBOSE "-v"
+
+typedef struct	s_args {
+	int			timeout;
+	int			packets_size;
+	int			ttl_value;
+	int			deadline;
+	double		interval;
+	int			num_packets;
+
 	int			verbose;
-}				t_vars;
+	char		*hostname;
+	char		*port;
+}				t_args;
 
-typedef struct			s_ping
-{
-	bool				verbose_mode;
-	pid_t				pid;
-}						t_ping;
+typedef struct	s_ping {
+	t_args			args;
+}				t_ping;
+
 
 // Print
 int print_help(int exit_code);
 int print_error(const char *error);
 
 // Parser
-t_vars *parser(int argc, const char **argv);
+void parser(t_ping *ping, int argc, const char **argv);
 
 #endif // FT_PING_HPP

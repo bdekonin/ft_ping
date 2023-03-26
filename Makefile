@@ -1,6 +1,6 @@
 NAME		= ft_ping
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -g
+# CFLAGS		= -Wall -Wextra -Werror -g
 
 INCS	=	-I./inc
 
