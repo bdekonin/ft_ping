@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 18:13:40 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/03/26 17:01:21 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/03/27 22:22:39 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int main(int argc, char const **argv)
 {
 	t_ping ping;
 
+	ft_bzero(&ping, sizeof(t_ping));
 	parser(&ping, argc, argv);
 
 	// Printing out ping->args
