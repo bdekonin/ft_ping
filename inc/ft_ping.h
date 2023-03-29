@@ -6,7 +6,7 @@
 /*   By: bdekonin <bdekonin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/14 19:37:23 by bdekonin      #+#    #+#                 */
-/*   Updated: 2023/03/26 17:00:08 by bdekonin      ########   odam.nl         */
+/*   Updated: 2023/03/29 20:16:21 by bdekonin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,33 @@
 # define F_VERBOSE "-v"
 
 typedef struct	s_args {
-	int			timeout;
-	int			packets_size;
-	int			ttl_value;
-	int			deadline;
-	double		interval;
-	int			num_packets;
+	// int			timeout;
+	// int			packets_size;
+	// int			ttl_value;
+	// int			deadline;
+	// double		interval;
+	// int			num_packets;
 
-	int			verbose;
-	char		*hostname;
-	char		*port;
+	
+	int			verbose; /* Verbose flag */
+	char		*hostname; /* String containing the string */
+	char		*port; /* String containing the port */
 }				t_args;
 
+typedef struct	s_stats {
+	int			transmitted; /* number of packets transmitted */
+	int			received; /* number of packets received */
+	double		min_rtt; /* minimum round trip time */
+	double		max_rtt; /* maximum round trip time */
+	double		sum_rtt; /* sum of round trip times */ 
+	double		sum_squared_rtt; /* sum of squared round trip times */
+}				t_stats;
+
 typedef struct	s_ping {
-	t_args			args;
+	t_args			args; /* parsed arguments */
+	t_stats			stats; /* statistics */
+    struct sockaddr_in server_addr; /* server address */
+	int 			sockfd; /* socket file descriptor */
 }				t_ping;
 
 
